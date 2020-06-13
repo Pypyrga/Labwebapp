@@ -1,0 +1,156 @@
+﻿@model ListViewModel<Boots>
+
+@{
+    ViewData["Title"] = "Catalog";
+}
+@{ var categories = ViewData["Groups"] as IEnumerable<BootsGroup>; 
+    int currentGroup = (int)TempData["CurrentGroup"];
+    var text = currentGroup != 0 
+        ? categories.FirstOrDefault(g => g.BootsGroupId == currentGroup)?.GroupName 
+        : "All"; }
+
+
+<div class="row">
+<div class="col-2">
+    <div class="dropdown mt-2">
+        <a class="btn btn-secondary dropdown-toggle" asp-action="Index" asp-controller="Product" 
+           role="button" id="dropdownMenuLink"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> @text </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+             <a class="dropdown-item" asp-action="Index" asp-controller="Product">Alllll</a>
+            @foreach (var item in categories)
+            {
+                <a class="dropdown-item" asp-action="Index" asp-controller="Product" 
+                   asp-route-group="@item.BootsGroupId">@item.GroupName</a>
+            }
+        </div>
+    </div>
+</div>   
+    <div class="col-10">
+        <div class="card-group" id="list"> 
+            <partial name="_ListPartial" model="@Model" />
+            </div>
+    <pager page-current="@Model.CurrentPage"
+           page-total="@Model.TotalPages"
+           action="Index"
+           controller="Product"
+           group-id="currentGroup">
+
+    </pager> 
+</div> 
+    </div> 
+
+
+
+
+
+
+
+
+
+
+@*<div class="row">
+    @foreach (var item in Model)
+    {<div class='col-md-4'>
+            <div class='card m-2 p-1'>
+                <img src="~/Images/@item.Image"
+                     alt='NoImage'
+                     class="card-img" />
+                <div class="card-body">
+                    <h5 class="card-title">
+                        @item.BootsName
+                    </h5>
+                    <p class="card-text">
+                        @item.Description
+                    </p>
+                    <div class="card-subtitle badge">
+                        <h4> @item.Size калорий</h4>*@
+@*</div>*@ @{ // Получение текущего адреса
+    //var request = ViewContext.HttpContext.Request;
+    //var returnUrl = request.Path + request.QueryString.ToUriComponent();
+
+}                     <!--Разметка кнопки добавления в корзину-->
+@*<a asp-action="Add"
+                           asp-controller="Cart"
+                           asp-route-id="@item.BootsId"
+                           asp-route-returnUrl="@returnUrl"
+                           class="btn btn-primary">
+                            <i class="fa fa-shopping-cart"></i>
+                            ADD
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>*@
+
+
+
+
+
+
+
+
+
+
+@*<h1>Index</h1>*@
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BootsId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BootsName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Size)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BootsGroupId)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BootsId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BootsName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Image)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BootsGroupId)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@
